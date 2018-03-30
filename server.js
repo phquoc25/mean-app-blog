@@ -3,6 +3,17 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const config = require('./config/database');
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.uri, (err) => {
+  if(err) {
+    console.error('Could not connect to db ' + config.db, err);
+  } else {
+    console.log('Connected to ' + config.db);
+  }
+});
 
 // Get our API routes
 const api = require('./server/routes/api');
